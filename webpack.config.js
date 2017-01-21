@@ -2,13 +2,14 @@ var path = require('path');
 var webpack = require('webpack');
 
 
-var BUILD_DIR = path.resolve(__dirname, 'dist');
-var APP_DIR = path.resolve(__dirname, 'src');
+var DIST_DIR = path.resolve(__dirname, 'dist');
+var SRC_DIR = path.resolve(__dirname, 'src');
+var DEMO_DIR = path.resolve(__dirname, 'demo');
 
 var config = {
-  entry: APP_DIR + '/index.jsx',
+  entry: SRC_DIR + '/index.jsx',
   output: {
-    path: BUILD_DIR,
+    path: DIST_DIR,
     filename: 'image-story.js',
     libraryTarget: 'commonjs2',
   },
@@ -16,7 +17,7 @@ var config = {
     loaders: [
       {
         test: /.jsx?$/,
-        include: APP_DIR,
+        include: SRC_DIR,
         loader: 'babel',
         exclude: /node_modules/,
       },
@@ -28,4 +29,26 @@ var config = {
   },
 };
 
-module.exports = config;
+demoConfig = {
+  entry: DEMO_DIR + '/src/index.jsx',
+  output: {
+    path: DEMO_DIR,
+    filename: 'index.js',
+  },
+  module: {
+    loaders: [
+      {
+        test: /.jsx?$/,
+        include: [
+          DEMO_DIR + '/src',
+          SRC_DIR,
+        ],
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+
+}
+
+module.exports = [config, demoConfig];
