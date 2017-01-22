@@ -18,8 +18,15 @@ let HelloWorld = React.createClass({
   render() {
     return (
       <div>
-        React Image Story
-        <ImageStory/>
+        <ImageStory
+
+          images={[
+            'http://www.johannjohannsson.com/wp-content/uploads/2015/10/Sicario-CD-Cover-500x500.jpg',
+            'http://www.johannjohannsson.com/wp-content/uploads/2015/10/Sicario-CD-Cover-500x500.jpg',
+            'http://media.vanityfair.com/photos/54525a63b8745bb176801bd7/master/pass/arya_JS.jpg',
+          ]}
+
+          />
       </div>
     )
   },
