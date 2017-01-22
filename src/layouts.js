@@ -1,5 +1,7 @@
 const Layouts = {
 
+      // TODO - Rename these based on number of images
+      // eg: _l1_1, _l3_1, _l3_2, _l3_3, _l4_1, _l4_1
       _l1: {
         getScore() {
 
