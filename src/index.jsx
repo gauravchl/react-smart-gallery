@@ -1,8 +1,8 @@
 import React from 'react';
 import Helper from './helper.jsx';
 
-const DEFAULT_WIDTH  = 350;
-const DEFAULT_HEIGHT = 350;
+const DEFAULT_WIDTH  = 500;
+const DEFAULT_HEIGHT = 500;
 
 let ImageStory = React.createClass({
   propTypes: {
@@ -19,14 +19,19 @@ let ImageStory = React.createClass({
 
 
   componentWillMount() {
-    this.prepareImages(() => {console.log('images prepared', this.images); this.forceUpdate();});
+    this.prepareImages(this.props.images, () => {console.log('images prepared', this.images); this.forceUpdate();});
+  },
+
+  componentWillReceiveProps(nextProps) {
+    let nextImages = nextProps.images;
+    this.prepareImages(nextImages, () => {console.log('images prepared', this.images); this.forceUpdate();});
+
   },
 
 
-  prepareImages(cb) {
-    let { images } = this.props;
-    let style = this.getStyles();
+  prepareImages(images, cb) {
     if (!images || !images.length) return;
+    let style = this.getStyles();
 
     this.images = [];
     images.forEach((img, index) => {
@@ -57,8 +62,10 @@ let ImageStory = React.createClass({
       case 1: result = Helper.getOneImageLayout(this.images);   break;
       case 2: result = Helper.getTwoImageLayout(this.images);   break;
       case 3: result = Helper.getThreeImageLayout(this.images); break;
+      case 4: result = Helper.getFourImageLayout(this.images);  break;
+      case 5: result = Helper.getFiveImageLayout(this.images);  break;
     }
-    return result;
+    return result || `${this.images.length} images not supported.`;
   },
 
 

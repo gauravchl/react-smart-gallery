@@ -4,14 +4,11 @@ import Layouts from './layouts.js'
 const Helper = {
 
     getOneImageLayout(images) {
-
-
-
+      return <p>1 image layout is not ready yet</p>
     },
 
     getTwoImageLayout(images) {
-
-
+      return <p>2 image layout is not ready yet</p>
     },
 
     getThreeImageLayout(images) {
@@ -40,6 +37,14 @@ const Helper = {
         return <img src={images[best.pos[index]].src} style={style} />
       })
 
+    },
+
+    getFourImageLayout(images) {
+      return <p>4 images not supported yet</p>
+    },
+
+    getFiveImageLayout(images) {
+      return <p>5 images not suported yet</p>
     },
 
 };
