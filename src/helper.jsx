@@ -11,8 +11,24 @@ const Helper = {
     )
   },
 
-  getTwoImageLayout(images) {
-    return <p>2 image layout is not ready yet</p>
+  getTwoImageLayout(images, style) {
+    let score1 = Layouts['_l2_1'].getScore(images);
+    let score2 = Layouts['_l2_2'].getScore(images);
+
+    let params = '';
+    if (score1 < score2) {
+      params = Layouts['_l2_1'].getParams();
+    } else {
+      params = Layouts['_l2_2'].getParams();
+      style.root.height = style.root.width / 2
+    }
+
+    return (
+      <div style={Object.assign({}, style.root)}>
+        <img src={images[0].src} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%'})} />
+        <img src={images[1].src} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%'})} />
+      </div>
+    )
   },
 
   getThreeImageLayout(images, style) {

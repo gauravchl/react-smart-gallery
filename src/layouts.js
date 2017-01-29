@@ -1,12 +1,7 @@
 const Layouts = {
 
-      // TODO - Rename these based on number of images
-      // eg: _l1_1, _l3_1, _l3_2, _l3_3, _l4_1, _l4_1
-      _l1_1: {
-        getParams() {
-          return {width: 100}
-        }
-      },
+
+      _l1_1: {},
 
 
       _l2_1: {
@@ -15,9 +10,12 @@ const Layouts = {
           let img2Score = Layouts._getCroppedPixel(imgs[1].width, imgs[1].height, 1, 1/2)
           return img1Score + img2Score;
         },
-        getParams(imgs) {
-
-        }
+        getParams() {
+          return [
+            {width: 1 * 100,height: 1 / 2 * 100},
+            {width: 1 * 100,height: 1 / 2 * 100},
+          ]
+        },
       },
 
 
@@ -27,9 +25,12 @@ const Layouts = {
           let img2Score = Layouts._getCroppedPixel(imgs[1].width, imgs[1].height, 1/2, 1/2)
           return img1Score + img2Score;
         },
-        getParams(imgs) {
-
-        }
+        getParams() {
+          return [
+            {width: 1 / 2 * 100,height: 1 * 100},
+            {width: 1 / 2 * 100,height: 1 * 100},
+          ]
+        },
       },
 
 
