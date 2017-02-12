@@ -23,10 +23,11 @@ const Helper = {
       style.root.height = style.root.width / 2
     }
 
+
     return (
       <div style={Object.assign({}, style.root)}>
-        <img key={1} src={images[0].src} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%'})} />
-        <img key={2} src={images[1].src} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%'})} />
+        <div key={1} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%', backgroundImage: `url(${images[0].src})`})} />
+        <div key={2} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%', backgroundImage: `url(${images[1].src})`})} />
       </div>
     )
   },
@@ -52,8 +53,9 @@ const Helper = {
     let preparedImages = [0,1,2].map((index) => {
       let width = `${params[index].width}%`;
       let height = `${params[index].height}%`;
-      let styl = Object.assign({}, style.img, {width, height})
-      return <img key={index} src={images[best.pos[index]].src} style={styl} />
+      let backgroundImage = `url(${images[best.pos[index]].src})`;
+      let styl = Object.assign({}, style.img, {width, height, backgroundImage})
+      return <div key={index} style={styl}></div>
     })
     return <div style={style.root}>{preparedImages}</div>
   },
@@ -77,8 +79,9 @@ const Helper = {
     let preparedImages = [0,1,2,3].map((index) => {
       let width = `${params[index].width}%`;
       let height = `${params[index].height}%`;
-      let styl = Object.assign({}, style.img, {width, height})
-      return <img key={index} src={images[best.pos[index]].src} style={styl} />
+      let backgroundImage = `url(${images[best.pos[index]].src})`;
+      let styl = Object.assign({}, style.img, {width, height, backgroundImage})
+      return <div key={index} style={styl}></div>
     })
     return <div style={style.root}>{preparedImages}</div>
   },

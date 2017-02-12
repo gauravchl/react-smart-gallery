@@ -80,9 +80,10 @@ let ImageStory = React.createClass({
       },
       img: {
         boxSizing: 'border-box',
-        objectFit: 'cover',
         border: 'solid 2px transparent',
         float: 'left',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
       },
     };
     return styles;
