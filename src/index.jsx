@@ -19,13 +19,12 @@ let ImageStory = React.createClass({
 
 
   componentWillMount() {
-    this.prepareImages(this.props.images, this.forceUpdate);
+    this.prepareImages(this.props.images, () => this.forceUpdate());
   },
 
   componentWillReceiveProps(nextProps) {
     let nextImages = nextProps.images;
-    this.prepareImages(nextImages, this.forceUpdate);
-
+    this.prepareImages(nextImages, () => this.forceUpdate());
   },
 
 
