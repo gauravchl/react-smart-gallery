@@ -58,14 +58,16 @@ let ImageStory = React.createClass({
     let result = null;
     let style = this.getStyles();
 
-    switch (this.images && this.images.length) {
+    if (!this.images || !this.images.length) return null;
+
+    switch (this.images.length) {
       case 1: result = Helper.getOneImageLayout(this.images, style);   break;
       case 2: result = Helper.getTwoImageLayout(this.images, style);   break;
       case 3: result = Helper.getThreeImageLayout(this.images, style); break;
       case 4: result = Helper.getFourImageLayout(this.images, style);  break;
-      case 5: result = Helper.getFiveImageLayout(this.images, style);  break;
+      default: result = Helper.getFourImageLayout(this.images.slice(0, 4), style, this.images.slice(4));  break;
     }
-    return result || `${this.images.length} images not supported.`;
+    return result
   },
 
 
@@ -80,10 +82,21 @@ let ImageStory = React.createClass({
       },
       img: {
         boxSizing: 'border-box',
-        border: 'solid 2px transparent',
+        border: 'solid 2px #fff',
         float: 'left',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+      },
+      more: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        color: '#fff',
+        fontSize: '38px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, .4)',
       },
     };
     return styles;

@@ -60,7 +60,7 @@ const Helper = {
     return <div style={style.root}>{preparedImages}</div>
   },
 
-  getFourImageLayout(images, style) {
+  getFourImageLayout(images, style, remainingImages) {
     let best = { layout: 1, pos: [0,1,2,3]}
     best.score = Layouts['_l4_1'].getScore(images);
     for (let i = 2; i < 4; i++) {
@@ -81,7 +81,9 @@ const Helper = {
       let height = `${params[index].height}%`;
       let backgroundImage = `url(${images[best.pos[index]].src})`;
       let styl = Object.assign({}, style.img, {width, height, backgroundImage})
-      return <div key={index} style={styl}></div>
+      let showMore = index == 3 && remainingImages && remainingImages.length
+
+      return <div key={index} style={styl}>{showMore ? <div style={style.more}>+ {remainingImages.length}</div> : null}</div>
     })
     return <div style={style.root}>{preparedImages}</div>
   },
