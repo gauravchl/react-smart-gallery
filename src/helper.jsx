@@ -25,8 +25,8 @@ const Helper = {
 
     return (
       <div style={Object.assign({}, style.root)}>
-        <img src={images[0].src} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%'})} />
-        <img src={images[1].src} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%'})} />
+        <img key={1} src={images[0].src} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%'})} />
+        <img key={2} src={images[1].src} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%'})} />
       </div>
     )
   },
@@ -47,20 +47,40 @@ const Helper = {
         if (score < best.score) best = { score: score, layout: i + 1, pos: [x, y, z]};
       }
     }
-    console.log(best);
     let params = Layouts[`_l3_${best.layout}`].getParams();
 
     let preparedImages = [0,1,2].map((index) => {
       let width = `${params[index].width}%`;
       let height = `${params[index].height}%`;
       let styl = Object.assign({}, style.img, {width, height})
-      return <img src={images[best.pos[index]].src} style={styl} />
+      return <img key={index} src={images[best.pos[index]].src} style={styl} />
     })
     return <div style={style.root}>{preparedImages}</div>
   },
 
-  getFourImageLayout(images) {
-    return <p>4 images not supported yet</p>
+  getFourImageLayout(images, style) {
+    let best = { layout: 1, pos: [0,1,2,3]}
+    best.score = Layouts['_l4_1'].getScore(images);
+    for (let i = 2; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        let w = j % 4;
+        let x = (j + 1) % 4;
+        let y = (j + 2) % 4;
+        let z = (j + 3) % 4;
+
+        let score = Layouts[`_l4_${i}`].getScore([images[w], images[x], images[y], images[z]]);
+        if (score < best.score) best = { score: score, layout: i, pos: [w, x, y, z]};
+      }
+    }
+
+    let params = Layouts[`_l4_${best.layout}`].getParams();
+    let preparedImages = [0,1,2,3].map((index) => {
+      let width = `${params[index].width}%`;
+      let height = `${params[index].height}%`;
+      let styl = Object.assign({}, style.img, {width, height})
+      return <img key={index} src={images[best.pos[index]].src} style={styl} />
+    })
+    return <div style={style.root}>{preparedImages}</div>
   },
 
   getFiveImageLayout(images) {

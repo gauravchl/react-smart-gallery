@@ -47,7 +47,7 @@ let HelloWorld = React.createClass({
 
 
     let images = this.state.images.map((img, index) => { return (
-      <div style={Object.assign({}, {backgroundImage: `url(${img.src})`}, wrapStyle)} onClick={() => this.toggleImage(index)}>
+      <div key={index} style={Object.assign({}, {backgroundImage: `url(${img.src})`}, wrapStyle)} onClick={() => this.toggleImage(index)}>
         {img.selected ? <div style={markStyle}>&#10004;</div> : null}
       </div>
     )})
@@ -92,27 +92,39 @@ const images = [
     selected: true,
   },
   {
-    src: 'https://images.unsplash.com/photo-1478479474071-8a3014d422c8?dpr=2&auto=compress,format&fit=crop&w=568&h=853&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/400x400',
   },
   {
-    src: 'https://images.unsplash.com/photo-1467189386127-c4e5e31ee213?dpr=2&auto=compress,format&fit=crop&w=568&h=379&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/500x500',
   },
   {
-    src: 'https://images.unsplash.com/photo-1475204257634-df83964505c0?dpr=2&auto=compress,format&fit=crop&w=568&h=557&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/600x600',
   },
   {
-    src: 'https://images.unsplash.com/reserve/unsplash_528b27288f41f_1.JPG?dpr=2&auto=compress,format&fit=crop&w=568&h=379&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/700x700',
   },
   {
-    src: 'https://images.unsplash.com/photo-1452570053594-1b985d6ea890?dpr=2&auto=compress,format&fit=crop&w=568&h=853&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/600x700',
   },
   {
-    src: 'https://images.unsplash.com/photo-1437252611977-07f74518abd7?dpr=2&auto=compress,format&fit=crop&w=568&h=426&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/800x1000',
   },
   {
-    src: 'https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?dpr=2&auto=compress,format&fit=crop&w=568&h=391&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/1000x1200',
   },
   {
-    src: 'https://images.unsplash.com/photo-1471116260918-e7a900488f12?dpr=2&auto=compress,format&fit=crop&w=568&h=853&q=80&cs=tinysrgb&crop=',
+    src: 'https://source.unsplash.com/random/1000x1400',
+  },
+  {
+    src: 'https://source.unsplash.com/random/1024x640',
+  },
+  {
+    src: 'https://source.unsplash.com/random/1920x1080',
+  },
+  {
+    src: 'https://source.unsplash.com/random/1280x800',
+  },
+  {
+    src: 'https://source.unsplash.com/random/1440x900',
   },
 ]
