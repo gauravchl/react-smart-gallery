@@ -9,14 +9,8 @@ let ImageStory = React.createClass({
     images: React.PropTypes.arrayOf(React.PropTypes.object),
     width: React.PropTypes.number,
     height: React.PropTypes.number,
+    rootStyle: React.PropTypes.object,
   },
-
-  getInitialState() {
-    return {
-
-    };
-  },
-
 
   componentWillMount() {
     this.prepareImages(this.props.images, () => this.forceUpdate());
@@ -72,13 +66,14 @@ let ImageStory = React.createClass({
 
 
   getStyles() {
-    let {width, height} = this.props;
+    let {width, height, rootStyle={}} = this.props;
 
     let styles = {
       root: {
+        backgroundColor: '#f5f5f5',
+        ...rootStyle,
         width: width || DEFAULT_WIDTH,
         height: height || DEFAULT_HEIGHT,
-        backgroundColor: '#f5f5f5',
       },
       img: {
         boxSizing: 'border-box',
@@ -99,6 +94,7 @@ let ImageStory = React.createClass({
         backgroundColor: 'rgba(0, 0, 0, .4)',
       },
     };
+
     return styles;
   },
 
