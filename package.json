@@ -1,7 +1,7 @@
 {
   "name": "react-smart-gallery",
-  "version": "0.0.2",
-  "description": "react-smart-gallery",
+  "version": "0.0.3",
+  "description": "Render images based on optimal layout, like facebook render images inside timeline.",
   "main": "dist/image-story.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +14,12 @@
     "url": "git+https://github.com/gauravchl/react-smart-gallery.git"
   },
   "keywords": [
-
+    "react",
+    "react-component",
+    "gallery",
+    "facebook",
+    "images",
+    "image gallery"
   ],
   "author": "Gaurav Chikhale",
   "license": "MIT",
