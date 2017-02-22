@@ -1,6 +1,6 @@
 # react-smart-gallery [![npm](https://img.shields.io/npm/v/react-smart-gallery.svg?maxAge=000)](https://www.npmjs.com/package/react-smart-gallery) [![npm](https://img.shields.io/npm/dm/react-smart-gallery.svg?maxAge=000)](https://www.npmjs.com/package/react-smart-gallery)
 
-Gallery to render images based on optimal layout, just like facebook render images inside timeline.
+Render images based on optimal layout, like facebook render images inside timeline.
 
 **Demo:**  https://gauravchl.github.io/react-smart-gallery/demo/
 
@@ -37,7 +37,7 @@ onImageSelect | function | Called when user click on any image item. e.g. `funct
 
 
 
-** More Examples:**
+**More Examples:**
 
 [with custom width and height]
 
