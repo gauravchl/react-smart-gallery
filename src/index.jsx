@@ -6,7 +6,7 @@ const DEFAULT_HEIGHT = 500;
 
 let ImageStory = React.createClass({
   propTypes: {
-    images: React.PropTypes.arrayOf(React.PropTypes.object),
+    images: React.PropTypes.arrayOf(React.PropTypes.string),
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     rootStyle: React.PropTypes.object,
