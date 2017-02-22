@@ -21,10 +21,9 @@ let HelloWorld = React.createClass({
 
   getAllImages() {
     let wrapStyle = {
-      float: 'left',
-      margin: 8,
       backgroundColor: '#eee',
       cursor: 'pointer',
+      margin: 4,
       position: 'relative',
       width: 100,
       height: 100,
@@ -52,7 +51,7 @@ let HelloWorld = React.createClass({
       </div>
     )})
 
-    return <div style={{overflow: 'hidden', margin: '22px auto', maxWidth: '1200px'}}>{images}</div>
+    return <div style={{display: 'flex', justifyContent: 'space-between', margin: '22px auto', maxWidth: 1200}}>{images}</div>
   },
 
 
@@ -124,18 +123,16 @@ const Header = function() {
     background: '#f5f5f5',
     padding: '0 12px',
     borderBottom: 'solid 1px #eee',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 52,
   };
 
   return (
     <header style={style}>
-      <span>React smart gallery</span>
-      <a href='https://github.com/gauravchl/react-smart-gallery' target='_blank'>
-        <OctoCat style={{float: 'right', fill: '#424242'}}/>
-      </a>
+      <div style={{margin: '0 auto', maxWidth: 1200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 52}}>
+        <span style={{fontFamily: 'monospace', fontSize: '22px'}}>React smart gallery</span>
+        <a href='https://github.com/gauravchl/react-smart-gallery' target='_blank'>
+          <OctoCat style={{float: 'right', fill: '#424242'}}/>
+        </a>
+      </div>
     </header>
   )
 }
