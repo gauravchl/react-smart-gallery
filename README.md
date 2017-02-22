@@ -18,9 +18,9 @@ npm install react-smart-gallery
 import SmartGallery from 'react-smart-gallery';
 
 const images = [
-  https://source.unsplash.com/random/400x400,
-  https://source.unsplash.com/random/400x400,
-  https://source.unsplash.com/random/400x400,
+  'https://source.unsplash.com/random/400x400',
+  'https://source.unsplash.com/random/400x400',
+  'https://source.unsplash.com/random/400x400',
 ];
 
 <SmartGallery images={images} />
@@ -45,9 +45,9 @@ onImageSelect | function | Called when user click on any image item. e.g. `funct
 import SmartGallery from 'react-smart-gallery';
 
 const images = [
-  https://source.unsplash.com/random/400x400,
-  https://source.unsplash.com/random/400x400,
-  https://source.unsplash.com/random/400x400,
+  'https://source.unsplash.com/random/400x400',
+  'https://source.unsplash.com/random/400x400',
+  'https://source.unsplash.com/random/400x400',
 ];
 
 <SmartGallery width={800} height={800} images={images} />
@@ -60,9 +60,9 @@ const images = [
 import SmartGallery from 'react-smart-gallery';
 
 const images = [
-  https://source.unsplash.com/random/400x400,
-  https://source.unsplash.com/random/400x400,
-  https://source.unsplash.com/random/400x400,
+  'https://source.unsplash.com/random/400x400',
+  'https://source.unsplash.com/random/400x400',
+  'https://source.unsplash.com/random/400x400',
 ];
 
 <SmartGallery
