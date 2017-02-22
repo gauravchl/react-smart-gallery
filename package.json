@@ -1,7 +1,7 @@
 {
-  "name": "react-image-story",
-  "version": "0.0.1",
-  "description": "react-image-story",
+  "name": "react-smart-gallery",
+  "version": "0.0.2",
+  "description": "react-smart-gallery",
   "main": "dist/image-story.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,23 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gauravchl/react-image-story.git"
+    "url": "git+https://github.com/gauravchl/react-smart-gallery.git"
   },
   "keywords": [
-    "react",
-    "react-image",
-    "react-component",
-    "react-image-grid",
-    "react-image-gallery",
-    "react-gallery",
-    "react-grid"
+
   ],
   "author": "Gaurav Chikhale",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gauravchl/react-image-story/issues"
+    "url": "https://github.com/gauravchl/react-smart-gallery/issues"
   },
-  "homepage": "https://github.com/gauravchl/react-image-story#readme",
+  "homepage": "https://github.com/gauravchl/react-smart-gallery#readme",
   "peerDependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.0"

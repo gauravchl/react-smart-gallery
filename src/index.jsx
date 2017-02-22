@@ -10,6 +10,7 @@ let ImageStory = React.createClass({
     width: React.PropTypes.number,
     height: React.PropTypes.number,
     rootStyle: React.PropTypes.object,
+    onImageSelect: React.PropTypes.func,
   },
 
   componentWillMount() {
@@ -53,13 +54,14 @@ let ImageStory = React.createClass({
     let style = this.getStyles();
 
     if (!this.images || !this.images.length) return null;
+    let { onImageSelect } = this.props;
 
     switch (this.images.length) {
-      case 1: result = Helper.getOneImageLayout(this.images, style);   break;
-      case 2: result = Helper.getTwoImageLayout(this.images, style);   break;
-      case 3: result = Helper.getThreeImageLayout(this.images, style); break;
-      case 4: result = Helper.getFourImageLayout(this.images, style);  break;
-      default: result = Helper.getFourImageLayout(this.images.slice(0, 4), style, this.images.slice(4));  break;
+      case 1: result = Helper.getOneImageLayout(this.images, style, onImageSelect);   break;
+      case 2: result = Helper.getTwoImageLayout(this.images, style, onImageSelect);   break;
+      case 3: result = Helper.getThreeImageLayout(this.images, style, onImageSelect); break;
+      case 4: result = Helper.getFourImageLayout(this.images, style, null, onImageSelect);  break;
+      default: result = Helper.getFourImageLayout(this.images.slice(0, 4), style, this.images.slice(4), onImageSelect);  break;
     }
     return result
   },

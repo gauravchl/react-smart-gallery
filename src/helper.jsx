@@ -3,15 +3,15 @@ import Layouts from './layouts.js'
 
 const Helper = {
 
-  getOneImageLayout(images, style) {
+  getOneImageLayout(images, style, onImageSelect) {
     return (
       <div style={Object.assign({}, style.root, {height: 'auto'})}>
-        <img src={images[0].src} style={Object.assign({}, style.img,  {width: '100%'})} />
+        <img onClick={(e) => onImageSelect(e, images[0].src)} src={images[0].src} style={Object.assign({}, style.img,  {width: '100%'})} />
       </div>
     )
   },
 
-  getTwoImageLayout(images, style) {
+  getTwoImageLayout(images, style, onImageSelect) {
     let score1 = Layouts['_l2_1'].getScore(images);
     let score2 = Layouts['_l2_2'].getScore(images);
 
@@ -26,13 +26,13 @@ const Helper = {
 
     return (
       <div style={Object.assign({}, style.root)}>
-        <div key={1} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%', backgroundImage: `url(${images[0].src})`})} />
-        <div key={2} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%', backgroundImage: `url(${images[1].src})`})} />
+        <div onClick={(e) => onImageSelect(e, images[0].src)} key={1} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%', backgroundImage: `url(${images[0].src})`})} />
+        <div onClick={(e) => onImageSelect(e, images[1].src)} key={2} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%', backgroundImage: `url(${images[1].src})`})} />
       </div>
     )
   },
 
-  getThreeImageLayout(images, style) {
+  getThreeImageLayout(images, style, onImageSelect) {
     let best = {
       score: 999999,
       layout: 1,
@@ -55,12 +55,12 @@ const Helper = {
       let height = `${params[index].height}%`;
       let backgroundImage = `url(${images[best.pos[index]].src})`;
       let styl = Object.assign({}, style.img, {width, height, backgroundImage})
-      return <div key={index} style={styl}></div>
+      return <div onClick={(e) => onImageSelect(e, images[best.pos[index]].src)} key={index} style={styl}></div>
     })
     return <div style={style.root}>{preparedImages}</div>
   },
 
-  getFourImageLayout(images, style, remainingImages) {
+  getFourImageLayout(images, style, remainingImages, onImageSelect) {
     let best = { layout: 1, pos: [0,1,2,3]}
     best.score = Layouts['_l4_1'].getScore(images);
     for (let i = 2; i < 4; i++) {
@@ -83,7 +83,7 @@ const Helper = {
       let styl = Object.assign({}, style.img, {width, height, backgroundImage})
       let showMore = index == 3 && remainingImages && remainingImages.length
 
-      return <div key={index} style={styl}>{showMore ? <div style={style.more}>+ {remainingImages.length}</div> : null}</div>
+      return <div key={index} onClick={(e) => onImageSelect(e, images[best.pos[index]].src)} style={styl}>{showMore ? <div style={style.more}>+ {remainingImages.length}</div> : null}</div>
     })
     return <div style={style.root}>{preparedImages}</div>
   },
