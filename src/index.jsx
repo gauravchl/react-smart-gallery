@@ -53,8 +53,10 @@ let ImageStory = React.createClass({
     let result = null;
     let style = this.getStyles();
 
+
     if (!this.images || !this.images.length) return null;
     let { onImageSelect } = this.props;
+    style.img.cursor = onImageSelect ? 'pointer' : null;
 
     switch (this.images.length) {
       case 1: result = Helper.getOneImageLayout(this.images, style, onImageSelect);   break;
