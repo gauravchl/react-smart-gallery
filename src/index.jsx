@@ -18,8 +18,20 @@ let ImageStory = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
+    let { images=[]} = this.props;
     let nextImages = nextProps.images;
-    this.prepareImages(nextImages, () => this.forceUpdate());
+    if (this.shouldPrepareImages(images, nextImages)) {
+      this.prepareImages(nextImages, this.forceUpdate.bind(this));
+    }
+  },
+
+  shouldPrepareImages(currentImages=[], nextImages=[]) {
+    if (currentImages.length !== nextImages.length) return true;
+    let result = false;
+    nextImages.forEach(img => {
+      if (currentImages.indexOf(img) === -1) result = true;
+    })
+    return result;
   },
 
 
