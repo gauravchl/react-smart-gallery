@@ -37,20 +37,33 @@ let ImageStory = React.createClass({
 
   prepareImages(images, cb) {
     if (!images || !images.length) return;
+    let oldImages = this.images || [];
 
-    this.images = [];
-    images.forEach((img, index) => {
+    this.images = images.map(img => {
+      let oldImg = oldImages.find(i => i.src === img);
+      return {
+        src: img,
+        loading: !oldImg,
+        width: oldImg ? oldImg.width : null,
+        height: oldImg ? oldImg.height : null,
+      }
+    });
+
+
+    this.images.forEach((img, index) => {
+      if (!img.loading) return;
       let i = new Image();
-      this.images[index] = {src: img, loading: true};
       i.onload = () => {
-        this.images[index] = {src: img, width: i.width, height: i.height}
+        this.images[index].width = i.width;
+        this.images[index].height = i.height;
+        this.images[index].loading = false;
         this.imagesPrepared() && cb();
       }
       i.onerror = () => {
         this.images.splice(index, 1);
         this.imagesPrepared() && cb();
       }
-      i.src = img;
+      i.src = img.src;
     })
   },
 
@@ -64,18 +77,16 @@ let ImageStory = React.createClass({
   getArrangedImages() {
     let result = null;
     let style = this.getStyles();
-
-
-    if (!this.images || !this.images.length) return null;
+    let images = this.images && this.images.filter(img => !img.loading);
+    if (!images || !images.length) return null;
     let { onImageSelect } = this.props;
     style.img.cursor = onImageSelect ? 'pointer' : null;
-
-    switch (this.images.length) {
-      case 1: result = Helper.getOneImageLayout(this.images, style, onImageSelect);   break;
-      case 2: result = Helper.getTwoImageLayout(this.images, style, onImageSelect);   break;
-      case 3: result = Helper.getThreeImageLayout(this.images, style, onImageSelect); break;
-      case 4: result = Helper.getFourImageLayout(this.images, style, null, onImageSelect);  break;
-      default: result = Helper.getFourImageLayout(this.images.slice(0, 4), style, this.images.slice(4), onImageSelect);  break;
+    switch (images.length) {
+      case 1: result = Helper.getOneImageLayout(images, style, onImageSelect);   break;
+      case 2: result = Helper.getTwoImageLayout(images, style, onImageSelect);   break;
+      case 3: result = Helper.getThreeImageLayout(images, style, onImageSelect); break;
+      case 4: result = Helper.getFourImageLayout(images, style, null, onImageSelect);  break;
+      default: result = Helper.getFourImageLayout(images.slice(0, 4), style, images.slice(4), onImageSelect);  break;
     }
     return result
   },
@@ -116,8 +127,6 @@ let ImageStory = React.createClass({
 
 
   render() {
-    // Todo - show placeholder here based on number of total images
-    if (!this.imagesPrepared()) return <div>Preparing images...</div>
     return this.getArrangedImages()
   },
 });

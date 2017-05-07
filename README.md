@@ -89,4 +89,4 @@ To build package locally run following commands which will build the package fro
   **TODOs:**
   - Update `props.images` to support array of objects, Send image's width and height along with src within this props to improve performance.
   - Add new prop `imageStyle` to style the image element
-  - Add new prop `loadingComponent`, to allow user to set custom component while images being prepared.
+  
