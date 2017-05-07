@@ -6,7 +6,7 @@ const Helper = {
   getOneImageLayout(images, style, onImageSelect) {
     return (
       <div style={Object.assign({}, style.root, {height: 'auto'})}>
-        <img onClick={(e) => onImageSelect(e, images[0].src)} src={images[0].src} style={Object.assign({}, style.img,  {width: '100%'})} />
+        <img onClick={(e) => onImageSelect && onImageSelect(e, images[0].src)} src={images[0].src} style={Object.assign({}, style.img,  {width: '100%'})} />
       </div>
     )
   },
@@ -26,8 +26,8 @@ const Helper = {
 
     return (
       <div style={Object.assign({}, style.root)}>
-        <div onClick={(e) => onImageSelect(e, images[0].src)} key={1} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%', backgroundImage: `url(${images[0].src})`})} />
-        <div onClick={(e) => onImageSelect(e, images[1].src)} key={2} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%', backgroundImage: `url(${images[1].src})`})} />
+        <div onClick={(e) => onImageSelect && onImageSelect(e, images[0].src)} key={1} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%', backgroundImage: `url(${images[0].src})`})} />
+        <div onClick={(e) => onImageSelect && onImageSelect(e, images[1].src)} key={2} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%', backgroundImage: `url(${images[1].src})`})} />
       </div>
     )
   },
@@ -55,7 +55,7 @@ const Helper = {
       let height = `${params[index].height}%`;
       let backgroundImage = `url(${images[best.pos[index]].src})`;
       let styl = Object.assign({}, style.img, {width, height, backgroundImage})
-      return <div onClick={(e) => onImageSelect(e, images[best.pos[index]].src)} key={index} style={styl}></div>
+      return <div onClick={(e) => onImageSelect && onImageSelect(e, images[best.pos[index]].src)} key={index} style={styl}></div>
     })
     return <div style={style.root}>{preparedImages}</div>
   },
@@ -83,7 +83,7 @@ const Helper = {
       let styl = Object.assign({}, style.img, {width, height, backgroundImage})
       let showMore = index == 3 && remainingImages && remainingImages.length
 
-      return <div key={index} onClick={(e) => onImageSelect(e, images[best.pos[index]].src)} style={styl}>{showMore ? <div style={style.more}>+ {remainingImages.length}</div> : null}</div>
+      return <div key={index} onClick={(e) => onImageSelect && onImageSelect(e, images[best.pos[index]].src)} style={styl}>{showMore ? <div style={style.more}>+ {remainingImages.length}</div> : null}</div>
     })
     return <div style={style.root}>{preparedImages}</div>
   },
