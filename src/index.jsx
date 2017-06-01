@@ -7,8 +7,8 @@ const DEFAULT_HEIGHT = 500;
 let ImageStory = React.createClass({
   propTypes: {
     images: React.PropTypes.arrayOf(React.PropTypes.string),
-    width: React.PropTypes.oneOf([React.PropTypes.number, React.PropTypes.string]),
-    height: React.PropTypes.oneOf([React.PropTypes.number, React.PropTypes.string]),
+    width: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+    height: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
     rootStyle: React.PropTypes.object,
     onImageSelect: React.PropTypes.func,
   },
