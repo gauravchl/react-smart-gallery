@@ -15,19 +15,23 @@ const Helper = {
     let score1 = Layouts['_l2_1'].getScore(images);
     let score2 = Layouts['_l2_2'].getScore(images);
 
-    let params = '';
+    let img1Style = { ...style.img, paddingTop: '50%', backgroundImage: `url(${images[0].src})` };
+    let img2Style = { ...style.img, paddingTop: '50%', backgroundImage: `url(${images[1].src})` };
+
     if (score1 < score2) {
-      params = Layouts['_l2_1'].getParams();
+      let params = Layouts['_l2_1'].getParams();
+      img1Style.width = params[0].width + '%';
+      img2Style.width = params[1].width + '%';
     } else {
-      params = Layouts['_l2_2'].getParams();
-      style.root.height = style.root.width / 2
+      let params = Layouts['_l2_2'].getParams();
+      img1Style.width = params[0].width + '%';
+      img2Style.width = params[1].width + '%';
     }
 
-
     return (
-      <div style={Object.assign({}, style.root)}>
-        <div onClick={(e) => onImageSelect && onImageSelect(e, images[0].src)} key={1} style={Object.assign({}, style.img,  {width: params[0].width + '%', height: params[0].height + '%', backgroundImage: `url(${images[0].src})`})} />
-        <div onClick={(e) => onImageSelect && onImageSelect(e, images[1].src)} key={2} style={Object.assign({}, style.img,  {width: params[1].width + '%', height: params[1].height + '%', backgroundImage: `url(${images[1].src})`})} />
+      <div style={{ ...style.root, height: 'auto', overflow: 'hidden' }}>
+        <div onClick={(e) => onImageSelect && onImageSelect(e, images[0].src)} key={1} style={img1Style} />
+        <div onClick={(e) => onImageSelect && onImageSelect(e, images[1].src)} key={2} style={img2Style} />
       </div>
     )
   },
