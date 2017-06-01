@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ImageStory from '../../src/index.jsx';
 
-
 let HelloWorld = React.createClass({
 
   getInitialState() {
@@ -65,7 +64,10 @@ let HelloWorld = React.createClass({
         {this.getAllImages()}
         <br/>
         <br/>
-        <ImageStory onImageSelect={(e, img) => window.open(img)} rootStyle={{margin: '0 auto'}} images={selectedImages} />
+        <ImageStory
+          onImageSelect={(e, img) => window.open(img)}
+          rootStyle={{margin: '0 auto'}}
+          images={selectedImages} />
         <Footer/>
       </div>
     )
