@@ -33,7 +33,7 @@ images    | [string] | Array of image source url
 rootStyle | object | Style for root element
 width     | number | Width of gallery box (default 500)
 height    | number | Height of gallery box (default 500)
-onImageSelect | function | Called when user click on any image item. e.g. `function(event, src) {window.open(src)}`
+onImageSelect | function | Called when user click on any image item. e.g. `function(event, src, index) {window.open(src)}`
 
 
 
@@ -89,4 +89,3 @@ To build package locally run following commands which will build the package fro
   **TODOs:**
   - Update `props.images` to support array of objects, Send image's width and height along with src within this props to improve performance.
   - Add new prop `imageStyle` to style the image element
-  

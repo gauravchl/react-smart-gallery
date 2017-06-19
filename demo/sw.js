@@ -1,5 +1,5 @@
 var APP_PREFIX = 'react-smart-gallery'
-var VERSION = 'version_01'
+var VERSION = '0.0.0.1'
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [
   './',
