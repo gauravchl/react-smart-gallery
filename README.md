@@ -34,6 +34,7 @@ rootStyle | object | Style for root element
 width     | number | Width of gallery box (default 500)
 height    | number | Height of gallery box (default 500)
 onImageSelect | function | Called when user click on any image item. e.g. `function(event, src, index) {window.open(src)}`
+onLoad | function | Runs after images prepared and loaded in UI.
 
 
 

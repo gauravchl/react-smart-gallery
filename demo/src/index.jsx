@@ -67,6 +67,7 @@ let HelloWorld = React.createClass({
         <ImageStory
           onImageSelect={(e, img) => window.open(img)}
           rootStyle={{margin: '0 auto'}}
+          onLoad={() => console.log('Images loaded')}
           images={selectedImages} />
         <Footer/>
       </div>

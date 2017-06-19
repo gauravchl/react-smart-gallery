@@ -11,10 +11,15 @@ let ImageStory = React.createClass({
     height: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
     rootStyle: React.PropTypes.object,
     onImageSelect: React.PropTypes.func,
+    onLoad: React.PropTypes.func,
   },
 
   componentWillMount() {
-    this.prepareImages(this.props.images, () => this.forceUpdate());
+    let onLoad = this.props.onLoad;
+    this.prepareImages(this.props.images, () => {
+      this.forceUpdate();
+      onLoad && onLoad();
+    });
   },
 
   componentWillReceiveProps(nextProps) {
