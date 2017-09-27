@@ -1,54 +1,75 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Helper from './helper.jsx';
 
 const DEFAULT_WIDTH  = 500;
 const DEFAULT_HEIGHT = 500;
+const MAX_IMAGES = 4; // currently supprt layout upto 4 images
 
-let ImageStory = React.createClass({
-  propTypes: {
-    images: React.PropTypes.arrayOf(React.PropTypes.string),
-    width: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-    height: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-    rootStyle: React.PropTypes.object,
-    onImageSelect: React.PropTypes.func,
-    onLoad: React.PropTypes.func,
-  },
+class ImageStory extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.shouldPrepareImages = this.shouldPrepareImages.bind(this);
+    this.prepareImages = this.prepareImages.bind(this);
+    this.imagesPrepared = this.imagesPrepared.bind(this);
+    this.getArrangedImages = this.getArrangedImages.bind(this);
+    this.getStyles = this.getStyles.bind(this);
+  }
+
 
   componentWillMount() {
-    let onLoad = this.props.onLoad;
-    this.prepareImages(this.props.images, () => {
+    let { onLoad, images } = this.props;
+
+    this.prepareImages(images, _ => {
+      if (!this._isMounted)
+        return
       this.forceUpdate();
       onLoad && onLoad();
     });
-  },
+  }
+
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
 
   componentWillReceiveProps(nextProps) {
-    let { images=[]} = this.props;
+    let { images = []} = this.props;
     let nextImages = nextProps.images;
     if (this.shouldPrepareImages(images, nextImages)) {
-      this.prepareImages(nextImages, this.forceUpdate.bind(this));
+      this.prepareImages(nextImages, _ => {
+        this._isMounted && this.forceUpdate()
+      });
     }
-  },
+  }
 
-  shouldPrepareImages(currentImages=[], nextImages=[]) {
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+
+  shouldPrepareImages(currentImages = [], nextImages = []) {
     if (currentImages.length !== nextImages.length) return true;
     let result = false;
     nextImages.forEach(img => {
       if (currentImages.indexOf(img) === -1) result = true;
     })
     return result;
-  },
+  }
 
 
   prepareImages(images, cb) {
     if (!images || !images.length) return;
     let oldImages = this.images || [];
 
-    this.images = images.map(img => {
+    this.images = images.map((img, index) => {
       let oldImg = oldImages.find(i => i.src === img);
       return {
         src: img,
-        loading: !oldImg,
+        loading: !oldImg && index < MAX_IMAGES,
         width: oldImg ? oldImg.width : null,
         height: oldImg ? oldImg.height : null,
       }
@@ -70,16 +91,17 @@ let ImageStory = React.createClass({
       }
       i.src = img.src;
     })
-  },
+  }
 
 
   imagesPrepared() {
     if (!this.images || !this.images.length) return;
     return !this.images.some((img) => img.loading)
-  },
+  }
 
 
   getArrangedImages() {
+    if (!this.imagesPrepared()) return null;
     let result = null;
     let style = this.getStyles();
     let images = this.images && this.images.filter(img => !img.loading);
@@ -87,18 +109,18 @@ let ImageStory = React.createClass({
     let { onImageSelect } = this.props;
     style.img.cursor = onImageSelect ? 'pointer' : null;
     switch (images.length) {
-      case 1: result = Helper.getOneImageLayout(images, style, onImageSelect);   break;
-      case 2: result = Helper.getTwoImageLayout(images, style, onImageSelect);   break;
-      case 3: result = Helper.getThreeImageLayout(images, style, onImageSelect); break;
-      case 4: result = Helper.getFourImageLayout(images, style, null, onImageSelect);  break;
+      case 1: result = Helper.getOneImageLayout(images.slice(0, 1), style, onImageSelect);   break;
+      case 2: result = Helper.getTwoImageLayout(images.slice(0, 2), style, onImageSelect);   break;
+      case 3: result = Helper.getThreeImageLayout(images.slice(0, 3), style, onImageSelect); break;
+      case 4: result = Helper.getFourImageLayout(images.slice(0, 4), style, null, onImageSelect);  break;
       default: result = Helper.getFourImageLayout(images.slice(0, 4), style, images.slice(4), onImageSelect);  break;
     }
     return result
-  },
+  }
 
 
   getStyles() {
-    let {width, height, rootStyle={}} = this.props;
+    let { width, height, rootStyle = {}} = this.props;
 
     let styles = {
       root: {
@@ -128,12 +150,23 @@ let ImageStory = React.createClass({
     };
 
     return styles;
-  },
+  }
 
 
   render() {
     return this.getArrangedImages()
-  },
-});
+  }
+}
+
+
+ImageStory.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  rootStyle: PropTypes.object,
+  onImageSelect: PropTypes.func,
+  onLoad: PropTypes.func,
+}
+
 
 export default ImageStory;

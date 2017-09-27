@@ -1,6 +1,6 @@
 {
   "name": "react-smart-gallery",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Render images based on optimal layout, like facebook render images inside timeline.",
   "main": "dist/image-story.js",
   "scripts": {
