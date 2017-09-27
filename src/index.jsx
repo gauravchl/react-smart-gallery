@@ -1,18 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Helper from './helper.jsx';
 
 const DEFAULT_WIDTH  = 500;
 const DEFAULT_HEIGHT = 500;
 
-let ImageStory = React.createClass({
-  propTypes: {
-    images: React.PropTypes.arrayOf(React.PropTypes.string),
-    width: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-    height: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-    rootStyle: React.PropTypes.object,
-    onImageSelect: React.PropTypes.func,
-    onLoad: React.PropTypes.func,
-  },
+
+
+class ImageStory extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.shouldPrepareImages = this.shouldPrepareImages.bind(this);
+    this.prepareImages = this.prepareImages.bind(this);
+    this.imagesPrepared = this.imagesPrepared.bind(this);
+    this.getArrangedImages = this.getArrangedImages.bind(this);
+    this.getStyles = this.getStyles.bind(this);
+  }
 
   componentWillMount() {
     let onLoad = this.props.onLoad;
@@ -20,24 +24,24 @@ let ImageStory = React.createClass({
       this.forceUpdate();
       onLoad && onLoad();
     });
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
-    let { images=[]} = this.props;
+    let { images = []} = this.props;
     let nextImages = nextProps.images;
     if (this.shouldPrepareImages(images, nextImages)) {
       this.prepareImages(nextImages, this.forceUpdate.bind(this));
     }
-  },
+  }
 
-  shouldPrepareImages(currentImages=[], nextImages=[]) {
+  shouldPrepareImages(currentImages = [], nextImages = []) {
     if (currentImages.length !== nextImages.length) return true;
     let result = false;
     nextImages.forEach(img => {
       if (currentImages.indexOf(img) === -1) result = true;
     })
     return result;
-  },
+  }
 
 
   prepareImages(images, cb) {
@@ -70,13 +74,13 @@ let ImageStory = React.createClass({
       }
       i.src = img.src;
     })
-  },
+  }
 
 
   imagesPrepared() {
     if (!this.images || !this.images.length) return;
     return !this.images.some((img) => img.loading)
-  },
+  }
 
 
   getArrangedImages() {
@@ -94,11 +98,11 @@ let ImageStory = React.createClass({
       default: result = Helper.getFourImageLayout(images.slice(0, 4), style, images.slice(4), onImageSelect);  break;
     }
     return result
-  },
+  }
 
 
   getStyles() {
-    let {width, height, rootStyle={}} = this.props;
+    let { width, height, rootStyle = {}} = this.props;
 
     let styles = {
       root: {
@@ -128,12 +132,21 @@ let ImageStory = React.createClass({
     };
 
     return styles;
-  },
+  }
 
 
   render() {
     return this.getArrangedImages()
-  },
-});
+  }
+}
+
+ImageStory.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  rootStyle: PropTypes.object,
+  onImageSelect: PropTypes.func,
+  onLoad: PropTypes.func,
+}
 
 export default ImageStory;

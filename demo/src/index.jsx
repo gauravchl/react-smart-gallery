@@ -2,20 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ImageStory from '../../src/index.jsx';
 
-let HelloWorld = React.createClass({
 
-  getInitialState() {
-    return {
-      images: images,
-    };
-  },
+class Demo extends React.Component {
+  constructor() {
+    super();
+    this.state = { images };
+  }
 
 
   toggleImage(index) {
     let { images } = this.state;
     images[index].selected = !images[index].selected;
-    this.setState({images});
-  },
+    this.setState({ images });
+  }
 
 
   getAllImages() {
@@ -44,21 +43,31 @@ let HelloWorld = React.createClass({
     }
 
 
-    let images = this.state.images.map((img, index) => { return (
-      <div key={index} style={Object.assign({}, {backgroundImage: `url(${img.src})`}, wrapStyle)} onClick={() => this.toggleImage(index)}>
-        {img.selected ? <div style={markStyle}>&#10004;</div> : null}
-      </div>
-    )})
+    const images = this.state.images.map((img, index) => {
+      return (
+        <div
+          key={index}
+          style={{ ...wrapStyle, backgroundImage: `url(${img.src})` }}
+          onClick={() => this.toggleImage(index)}>
+
+          { img.selected
+            ? <div style={markStyle}>&#10004;</div>
+            : null
+          }
+
+        </div>
+      )
+    })
 
     return <div style={{display: 'flex', justifyContent: 'space-between', margin: '22px auto', maxWidth: 1200}}>{images}</div>
-  },
+  }
 
 
   render() {
     let { images } = this.state;
     let selectedImages = images.filter((img) => img.selected).map((img) => img.src);
     return (
-      <div style={{paddingBottom: 52}}>
+      <div style={{ paddingBottom: 52 }}>
         <Header/>
 
         {this.getAllImages()}
@@ -66,20 +75,19 @@ let HelloWorld = React.createClass({
         <br/>
         <ImageStory
           onImageSelect={(e, img) => window.open(img)}
-          rootStyle={{margin: '0 auto'}}
+          rootStyle={{ margin: '0 auto' }}
           onLoad={() => console.log('Images loaded')}
           images={selectedImages} />
         <Footer/>
       </div>
     )
-  },
-});
+  }
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<HelloWorld/>, document.getElementById('main'));
+  ReactDOM.render(<Demo />, document.getElementById('main'));
 });
-
-
 
 
 const images = [
@@ -117,8 +125,6 @@ const images = [
     src: 'https://images.unsplash.com/44/xKNCBEgSTUGbgBoYgJ90_Skyline.jpg?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1000&h=1200&fit=crop&s=2a6d5440a185b01966eba1f021238236',
   },
 ]
-
-
 
 
 const Header = function() {
