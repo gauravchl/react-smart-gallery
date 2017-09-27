@@ -4,7 +4,7 @@ import Helper from './helper.jsx';
 
 const DEFAULT_WIDTH  = 500;
 const DEFAULT_HEIGHT = 500;
-
+const MAX_IMAGES = 4; // currently supprt layout upto 4 images
 
 class ImageStory extends React.Component {
 
@@ -65,11 +65,11 @@ class ImageStory extends React.Component {
     if (!images || !images.length) return;
     let oldImages = this.images || [];
 
-    this.images = images.map(img => {
+    this.images = images.map((img, index) => {
       let oldImg = oldImages.find(i => i.src === img);
       return {
         src: img,
-        loading: !oldImg,
+        loading: !oldImg && index < MAX_IMAGES,
         width: oldImg ? oldImg.width : null,
         height: oldImg ? oldImg.height : null,
       }
@@ -101,6 +101,7 @@ class ImageStory extends React.Component {
 
 
   getArrangedImages() {
+    if (!this.imagesPrepared()) return null;
     let result = null;
     let style = this.getStyles();
     let images = this.images && this.images.filter(img => !img.loading);
@@ -108,10 +109,10 @@ class ImageStory extends React.Component {
     let { onImageSelect } = this.props;
     style.img.cursor = onImageSelect ? 'pointer' : null;
     switch (images.length) {
-      case 1: result = Helper.getOneImageLayout(images, style, onImageSelect);   break;
-      case 2: result = Helper.getTwoImageLayout(images, style, onImageSelect);   break;
-      case 3: result = Helper.getThreeImageLayout(images, style, onImageSelect); break;
-      case 4: result = Helper.getFourImageLayout(images, style, null, onImageSelect);  break;
+      case 1: result = Helper.getOneImageLayout(images.slice(0, 1), style, onImageSelect);   break;
+      case 2: result = Helper.getTwoImageLayout(images.slice(0, 2), style, onImageSelect);   break;
+      case 3: result = Helper.getThreeImageLayout(images.slice(0, 3), style, onImageSelect); break;
+      case 4: result = Helper.getFourImageLayout(images.slice(0, 4), style, null, onImageSelect);  break;
       default: result = Helper.getFourImageLayout(images.slice(0, 4), style, images.slice(4), onImageSelect);  break;
     }
     return result
