@@ -6,7 +6,6 @@ const DEFAULT_WIDTH  = 500;
 const DEFAULT_HEIGHT = 500;
 
 
-
 class ImageStory extends React.Component {
 
   constructor(props) {
@@ -18,21 +17,39 @@ class ImageStory extends React.Component {
     this.getStyles = this.getStyles.bind(this);
   }
 
+
   componentWillMount() {
-    let onLoad = this.props.onLoad;
-    this.prepareImages(this.props.images, () => {
+    let { onLoad, images } = this.props;
+
+    this.prepareImages(images, _ => {
+      if (!this._isMounted)
+        return
       this.forceUpdate();
       onLoad && onLoad();
     });
   }
 
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+
   componentWillReceiveProps(nextProps) {
     let { images = []} = this.props;
     let nextImages = nextProps.images;
     if (this.shouldPrepareImages(images, nextImages)) {
-      this.prepareImages(nextImages, this.forceUpdate.bind(this));
+      this.prepareImages(nextImages, _ => {
+        this._isMounted && this.forceUpdate()
+      });
     }
   }
+
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
 
   shouldPrepareImages(currentImages = [], nextImages = []) {
     if (currentImages.length !== nextImages.length) return true;
@@ -140,6 +157,7 @@ class ImageStory extends React.Component {
   }
 }
 
+
 ImageStory.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string),
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -148,5 +166,6 @@ ImageStory.propTypes = {
   onImageSelect: PropTypes.func,
   onLoad: PropTypes.func,
 }
+
 
 export default ImageStory;
